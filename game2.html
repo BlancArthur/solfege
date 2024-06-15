@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solfège Game 2</title>
+    <title>Identifie la note jouée</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Identifie la note jouée</h1>
+        <div id="instrument-selection">
+            <img src="images/piano.png" alt="Piano" onclick="selectInstrument('piano', this)" class="instrument-logo" id="piano">
+            <img src="images/guitare.png" alt="Guitare" onclick="selectInstrument('guitar', this)" class="instrument-logo" id="guitar">
+            <img src="images/trompette.png" alt="trompette" onclick="selectInstrument('trompette', this)" class="instrument-logo" id="violin">
+        </div>
         <div id="controls">
             <button onclick="playRandomNote()">Jouer une note</button>
         </div>
