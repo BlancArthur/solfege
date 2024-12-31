@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solfège Game 3</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .staff {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            margin: 20px auto;
+            background-color: #f0f0f0;
+        }
+
+        .line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: black;
+        }
+
+        .line:nth-child(1) {
+            top: 40px;
+        }
+
+        .line:nth-child(2) {
+            top: 60px;
+        }
+
+        .line:nth-child(3) {
+            top: 80px;
+        }
+
+        .line:nth-child(4) {
+            top: 100px;
+        }
+
+        .line:nth-child(5) {
+            top: 120px;
+        }
+
+        .note {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: black;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .note-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .note-buttons button {
+            margin: 0 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .cle {
+            position: absolute;
+            width: 40px;
+            height: 80px;
+            left: 10px;
+        }
+
+        .cle-sol {
+            background-image: url('cle-sol.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .cle-fa {
+            background-image: url('cle-fa.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .back-arrow {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            border: solid black;
+            border-width: 0 3px 3px 0;
+            transform: rotate(135deg);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-arrow" onclick="goBack()"></div>
+        <h1>Choisis la bonne note</h1>
+        <p>Sélectionne la gamme : <span id="currentGamme">Gamme de Sol</span></p>
+
+        <div class="staff" id="staff">
+            <div class="cle cle-sol" id="cle"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+
+        <div class="note-buttons">
+            <button onclick="checkGuess('C')">Do</button>
+            <button onclick="checkGuess('D')">Ré</button>
+            <button onclick="checkGuess('E')">Mi</button>
+            <button onclick="checkGuess('F')">Fa</button>
+            <button onclick="checkGuess('G')">Sol</button>
+            <button onclick="checkGuess('A')">La</button>
+            <button onclick="checkGuess('B')">Si</button>
+        </div>
+
+        <button onclick="changeGamme()">Changer la gamme</button>
+        <p id="result"></p>
+        <p>Score : <span id="scoreValue">0</span></p>
+        <div id="debug"></div>
+    </div>
+
+    <script>
+        const gammes = {
+            sol: ["C", "D", "E", "F", "G", "A", "B"],
+            fa: ["F", "G", "A", "Bb", "C", "D", "E"]
+        };
+
+        // Recalibrage précis des positions des notes sur la portée
+        const notePositionsSol = {
+            C: 130, // Do (ligne supplémentaire sous la portée)
+            D: 120, // Ré (sous la 1ère ligne)
+            E: 110, // Mi (1ère ligne)
+            F: 100, // Fa (1er interligne)
+            G: 90,  // Sol (2ème ligne)
+            A: 80,  // La (2ème interligne)
+            B: 70,  // Si (3ème ligne)
+            highC: 60 // Do (au-dessus de la portée)
+        };
+
+        const notePositionsFa = {
+            E: 130, // Mi (ligne supplémentaire sous la portée en clé de fa)
+            F: 120, // Fa (sous la 1ère ligne)
+            G: 110, // Sol (1ère ligne)
+            A: 100, // La (1er interligne)
+            B: 90,  // Si (2ème ligne)
+            C: 80,  // Do (2ème interligne)
+            D: 70,  // Ré (3ème ligne)
+            highE: 60 // Mi (au-dessus de la portée)
+        };
+
+        let currentGamme = 'sol';
+        let currentNote = '';
+        let score = 0;
+
+        function goBack() {
+            window.location.href = 'index.html'; // Remplacez par le chemin vers la page principale
+        }
+
+        function changeGamme() {
+            currentGamme = currentGamme === 'sol' ? 'fa' : 'sol';
+            document.getElementById('currentGamme').innerText = `Gamme de ${currentGamme.charAt(0).toUpperCase() + currentGamme.slice(1)}`;
+
+            // Changer la clé affichée
+            const cleElement = document.getElementById('cle');
+            if (currentGamme === 'sol') {
+                cleElement.className = 'cle cle-sol';
+            } else {
+                cleElement.className = 'cle cle-fa';
+            }
+
+            generateNotes();
+        }
+
+        function generateNotes() {
+            const staff = document.getElementById('staff');
+            staff.innerHTML = '';
+
+            // Ajouter la clé
+            const cleElement = document.createElement('div');
+            cleElement.id = 'cle';
+            cleElement.className = currentGamme === 'sol' ? 'cle cle-sol' : 'cle cle-fa';
+            staff.appendChild(cleElement);
+
+            // Ajouter les lignes de la portée
+            for (let i = 0; i < 5; i++) {
+                const line = document.createElement('div');
+                line.className = 'line';
+                line.style.top = `${40 + i * 20}px`;
+                staff.appendChild(line);
+            }
+
+            // Ajouter une note aléatoire
+            const notes = gammes[currentGamme];
+            currentNote = notes[Math.floor(Math.random() * notes.length)];
+
+            const notePositions = currentGamme === 'sol' ? notePositionsSol : notePositionsFa;
+
+            const noteDiv = document.createElement('div');
+            noteDiv.className = 'note';
+            noteDiv.style.top = `${notePositions[currentNote]}px`;
+            noteDiv.style.left = '150px'; // Position horizontale fixe
+            staff.appendChild(noteDiv);
+
+            // Debug info
+            document.getElementById('debug').innerText = `Note affichée: ${currentNote} à ${notePositions[currentNote]}px`;
+        }
+
+        function checkGuess(note) {
+            if (note === currentNote) {
+                document.getElementById('result').innerText = "Bravo ! C'est la bonne note.";
+                score++;
+            } else {
+                document.getElementById('result').innerText = `Dommage ! La note correcte était ${currentNote}.`;
+                score = Math.max(0, score - 1);
+            }
+            document.getElementById('scoreValue').innerText = score;
+            generateNotes();
+        }
+
+        // Initialisation
+        generateNotes();
+    </script>
+</body>
+</html>
