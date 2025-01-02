@@ -4,73 +4,269 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les Gammes Majeures et Mineures</title>
-    <link rel="stylesheet" href="../style.css"> <!-- Lien vers ton fichier CSS -->
+    <style>
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .piano {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .key {
+            width: 40px;
+            height: 150px;
+            border: 1px solid black;
+            background: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .key.black {
+            width: 30px;
+            height: 100px;
+            background: black;
+            position: absolute;
+            top: 0;
+            left: 70%;
+            z-index: 2;
+        }
+
+        .key.highlight {
+            background: #f39c12 !important;
+        }
+
+        .key-container {
+            position: relative;
+        }
+
+        .selector {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>Les Gammes Majeures et Mineures</h1>
-        </header>
+<div class="container">
+    <header>
+        <h1>Les Gammes Majeures et Mineures</h1>
+    </header>
 
-        <main>
-            <section>
-                <h2>Introduction aux gammes</h2>
-                <p>Les gammes sont des ensembles de notes organisées de manière spécifique. Elles sont la base de nombreuses compositions musicales et permettent de définir une tonalité. Les deux types les plus courants sont les gammes majeures et mineures.</p>
+    <section class="section">
+        <h2>Introduction aux gammes</h2>
+        <p>Les gammes sont des ensembles de notes organisées selon des intervalles spécifiques. Elles sont la base de nombreuses compositions musicales et permettent de définir une tonalité.</p>
+    </section>
 
-                <h2>Les Gammes Majeures</h2>
-                <p>Une gamme majeure est une succession de notes qui suivent un schéma précis d'intervalles : ton, ton, demi-ton, ton, ton, ton, demi-ton. Par exemple, la gamme de Do majeur (sans altérations) est composée des notes suivantes :</p>
-                <ul>
-                    <li>Do</li>
-                    <li>Ré</li>
-                    <li>Mi</li>
-                    <li>Fa</li>
-                    <li>Sol</li>
-                    <li>La</li>
-                    <li>Si</li>
-                    <li>Do</li>
-                </ul>
-                <img src="gamme_majeure.png" alt="Exemple d'une gamme majeure" style="max-width:100%; height:auto;">
-                <h3>Particularités</h3>
-                <p>Les gammes majeures ont un son lumineux et joyeux, ce qui les rend très utilisées dans la musique classique et populaire.</p>
+    <section class="section">
+        <h2>Construction des Gammes Majeures</h2>
+        <p>Les gammes majeures suivent un schéma d'intervalles précis : ton, ton, demi-ton, ton, ton, ton, demi-ton. Par exemple, la gamme de Do majeur contient :</p>
+        <ul>
+            <li>Do</li>
+            <li>Ré</li>
+            <li>Mi</li>
+            <li>Fa</li>
+            <li>Sol</li>
+            <li>La</li>
+            <li>Si</li>
+            <li>Do</li>
+        </ul>
+    </section>
 
-                <h2>Les Gammes Mineures</h2>
-                <p>Les gammes mineures sont également basées sur un schéma d'intervalles, mais elles ont une sonorité plus sombre ou mélancolique. Il existe trois types principaux de gammes mineures :</p>
-                <ul>
-                    <li><strong>Mineure naturelle</strong> : ton, demi-ton, ton, ton, demi-ton, ton, ton.</li>
-                    <li><strong>Mineure harmonique</strong> : similaire à la mineure naturelle mais avec un septième degré élevé d'un demi-ton.</li>
-                    <li><strong>Mineure mélodique</strong> : dans la version ascendante, le sixième et le septième degré sont élevés d'un demi-ton ; dans la version descendante, elle revient à la mineure naturelle.</li>
-                </ul>
-                <p>Exemple : la gamme de La mineur naturelle (sans altérations) est composée des notes suivantes :</p>
-                <ul>
-                    <li>La</li>
-                    <li>Si</li>
-                    <li>Do</li>
-                    <li>Ré</li>
-                    <li>Mi</li>
-                    <li>Fa</li>
-                    <li>Sol</li>
-                    <li>La</li>
-                </ul>
-                <img src="gamme_mineure.png" alt="Exemple d'une gamme mineure" style="max-width:100%; height:auto;">
+    <section class="section">
+        <h2>Construction des Gammes Mineures</h2>
+        <p>Les gammes mineures suivent plusieurs schémas :</p>
+        <ul>
+            <li><strong>Mineure naturelle :</strong> ton, demi-ton, ton, ton, demi-ton, ton, ton.</li>
+            <li><strong>Mineure harmonique :</strong> similaire à la mineure naturelle, mais avec une septième augmentée d'un demi-ton.</li>
+            <li><strong>Mineure mélodique :</strong> sixième et septième augmentées d'un demi-ton en montant, mais naturelle en descendant.</li>
+        </ul>
+    </section>
 
-                <h2>Pourquoi apprendre les gammes ?</h2>
-                <p>Les gammes sont essentielles pour :</p>
-                <ul>
-                    <li>Comprendre la construction des mélodies et des accords.</li>
-                    <li>Améliorer la technique instrumentale.</li>
-                    <li>Renforcer l'oreille musicale.</li>
-                    <li>Faciliter l'improvisation et la composition.</li>
-                </ul>
+    <section class="section">
+        <h2>Les Autres Types de Gammes</h2>
+        <p>Outre les gammes majeures et mineures, il existe :</p>
+        <ul>
+            <li><strong>Gammes pentatoniques :</strong> Utilisées dans le blues et le rock, composées de cinq notes par octave.</li>
+            <li><strong>Gammes chromatiques :</strong> Contiennent les 12 demi-tons d'une octave.</li>
+            <li><strong>Gammes modales :</strong> Basées sur les modes anciens comme dorien, phrygien, etc.</li>
+        </ul>
+    </section>
 
-                <h2>Exercice pratique</h2>
-                <p>Essayez de jouer la gamme de Do majeur et de La mineur sur votre instrument. Notez la différence de sonorité entre les deux.</p>
-            </section>
+    <section class="section">
+        <h2>Cercle des Quintes</h2>
+        <p>Le cercle des quintes est un outil visuel pour comprendre les relations entre les tonalités. Chaque segment représente une tonalité majeure et sa relative mineure. Utilisé pour :</p>
+        <ul>
+            <li>Composer et transposer des morceaux.</li>
+            <li>Comprendre les altérations de chaque tonalité.</li>
+            <li>Faciliter l'improvisation.</li>
+        </ul>
+    </section>
 
-            <a href="../cours.html" class="game-link">Retour au sommaire</a> <!-- Lien retour vers la page principale -->
-        </main>
+    <main>
+        <div class="selector">
+            <label for="noteSelector">Note :</label>
+            <select id="noteSelector" onchange="updateGamme()">
+                <option value="C">Do</option>
+                <option value="C#">Do#</option>
+                <option value="D">Ré</option>
+                <option value="D#">Ré#</option>
+                <option value="E">Mi</option>
+                <option value="F">Fa</option>
+                <option value="F#">Fa#</option>
+                <option value="G">Sol</option>
+                <option value="G#">Sol#</option>
+                <option value="A">La</option>
+                <option value="A#">La#</option>
+                <option value="B">Si</option>
+                <option value="Bb">Si♭</option>
+            </select>
 
-    </div>
+            <label for="typeSelector">Type :</label>
+            <select id="typeSelector" onchange="updateGamme()">
+                <option value="majeur">Majeur</option>
+                <option value="mineur">Mineur</option>
+            </select>
+        </div>
+
+        <!-- Piano sur deux octaves -->
+        <div class="piano" id="piano">
+            <!-- Première octave -->
+            <div class="key-container">
+                <div class="key" data-note="C"></div>
+                <div class="key black" data-note="C#" data-note-alias="Db"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="D"></div>
+                <div class="key black" data-note="D#" data-note-alias="Eb"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="E" data-note-alias="Fb"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="F"></div>
+                <div class="key black" data-note="F#" data-note-alias="Gb"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="G"></div>
+                <div class="key black" data-note="G#" data-note-alias="Ab"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="A"></div>
+                <div class="key black" data-note="A#" data-note-alias="Bb"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="B" data-note-alias="Cb"></div>
+            </div>
+
+            <!-- Deuxième octave -->
+            <div class="key-container">
+                <div class="key" data-note="C2"></div>
+                <div class="key black" data-note="C#2" data-note-alias="Db2"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="D2"></div>
+                <div class="key black" data-note="D#2" data-note-alias="Eb2"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="E2" data-note-alias="Fb2"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="F2"></div>
+                <div class="key black" data-note="F#2" data-note-alias="Gb2"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="G2"></div>
+                <div class="key black" data-note="G#2" data-note-alias="Ab2"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="A2"></div>
+                <div class="key black" data-note="A#2" data-note-alias="Bb2"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="B2" data-note-alias="Cb2"></div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+   const gammes = {
+    "C-majeur": ["C", "D", "E", "F", "G", "A", "B"],
+    "C-mineur": ["C", "D", "Eb", "F", "G", "Ab", "Bb"],
+    "C#-majeur": ["C#", "D#", "E#", "F#", "G#", "A#", "B#"],
+    "C#-mineur": ["C#", "D#", "E", "F#", "G#", "A", "B"],
+    "D-majeur": ["D", "E", "F#", "G", "A", "B", "C#"],
+    "D-mineur": ["D", "E", "F", "G", "A", "Bb", "C"],
+    "D#-majeur": ["D#", "E#", "F##", "G#", "A#", "B#", "C##"],
+    "D#-mineur": ["D#", "E#", "F#", "G#", "A#", "B", "C#"],
+    "E-majeur": ["E", "F#", "G#", "A", "B", "C#", "D#"],
+    "E-mineur": ["E", "F#", "G", "A", "B", "C", "D"],
+    "F-majeur": ["F", "G", "A", "Bb", "C", "D", "E"],
+    "F-mineur": ["F", "G", "Ab", "Bb", "C", "Db", "Eb"],
+    "F#-majeur": ["F#", "G#", "A#", "B", "C#", "D#", "E#"],
+    "F#-mineur": ["F#", "G#", "A", "B", "C#", "D", "E"],
+    "G-majeur": ["G", "A", "B", "C", "D", "E", "F#"],
+    "G-mineur": ["G", "A", "Bb", "C", "D", "Eb", "F"],
+    "G#-majeur": ["G#", "A#", "B#", "C#", "D#", "E#", "F##"],
+    "G#-mineur": ["G#", "A#", "B", "C#", "D#", "E", "F#"],
+    "A-majeur": ["A", "B", "C#", "D", "E", "F#", "G#"],
+    "A-mineur": ["A", "B", "C", "D", "E", "F", "G"],
+    "A#-majeur": ["A#", "B#", "C##", "D#", "E#", "F##", "G##"],
+    "A#-mineur": ["A#", "B#", "C#", "D#", "E#", "F#", "G#"],
+    "B-majeur": ["B", "C#", "D#", "E", "F#", "G#", "A#"],
+    "B-mineur": ["B", "C#", "D", "E", "F#", "G", "A"],
+    "Bb-majeur": ["Bb", "C", "D", "Eb", "F", "G", "A"],
+    "Bb-mineur": ["Bb", "C", "Db", "Eb", "F", "Gb", "Ab"],
+    "Cb-majeur": ["Cb", "Db", "Eb", "Fb", "Gb", "Ab", "Bb"],
+    "Cb-mineur": ["Cb", "Db", "Ebb", "Fb", "Gb", "Abb", "Bbb"],
+    "E#-majeur": ["E#", "F##", "G##", "A#", "B#", "C##", "D##"],
+    "E#-mineur": ["E#", "F##", "G#", "A#", "B#", "C#", "D#"]
+};
+
+    function updateGamme() {
+        const note = document.getElementById("noteSelector").value;
+        const type = document.getElementById("typeSelector").value;
+        const selectedGamme = `${note}-${type}`;
+        const notes = gammes[selectedGamme] || [];
+
+        const pianoKeys = document.querySelectorAll(".key");
+        pianoKeys.forEach(key => key.classList.remove("highlight"));
+
+        notes.forEach(note => {
+            pianoKeys.forEach(key => {
+                const keyNote = key.getAttribute("data-note");
+                const keyAlias = key.getAttribute("data-note-alias");
+                if (keyNote === note || keyAlias === note) {
+                    key.classList.add("highlight");
+                }
+            });
+        });
+    }
+
+    // Initialiser avec une gamme par défaut
+    updateGamme();
+</script>
 
 </body>
 </html>

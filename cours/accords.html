@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accords - Solfège</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .accord-types {
+            margin: 20px 0;
+        }
+
+        .accord-types h3 {
+            margin-bottom: 10px;
+        }
+
+        .accord-types p, .accord-types li {
+            margin: 5px 0;
+        }
+
+        .selector {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .results {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .result-list {
+            margin-top: 20px;
+        }
+
+        .result-list p {
+            margin: 5px 0;
+        }
+
+        .piano {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .key {
+            width: 40px;
+            height: 150px;
+            border: 1px solid black;
+            background: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .key.black {
+            width: 30px;
+            height: 100px;
+            background: black;
+            position: absolute;
+            top: 0;
+            left: 70%;
+            z-index: 2;
+        }
+
+        .key.highlight {
+            background: #f39c12 !important;
+        }
+
+        .key-container {
+            position: relative;
+        }
+
+        .selector-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .selector-group select {
+            padding: 10px;
+            font-size: 16px;
+        }
+        .back-arrow {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            border: solid black;
+            border-width: 0 3px 3px 0;
+            transform: rotate(135deg);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="back-arrow" onclick="goBack()"></div>
+    <div class="container">
+        <h1>Découverte des Accords</h1>
+
+        <div class="accord-types">
+            <h2>Types d'Accords</h2>
+
+            <h3>Accord Majeur</h3>
+            <p>Un accord majeur est composé de la fondamentale, de la tierce majeure et de la quinte juste. Exemple : C (Do majeur) : C - E - G (0, 4, 7 demi-tons).</p>
+
+            <h3>Accord Mineur</h3>
+            <p>Un accord mineur est composé de la fondamentale, de la tierce mineure et de la quinte juste. Exemple : Cm (Do mineur) : C - Eb - G (0, 3, 7 demi-tons).</p>
+
+            <h3>Accords de Septième</h3>
+            <p>Il existe plusieurs accords de septième :</p>
+            <ul>
+                <li><strong>Septième Majeur</strong> : fondamentale, tierce majeure, quinte juste, septième majeure. Exemple : Cmaj7 : C - E - G - B (0, 4, 7, 11 demi-tons).</li>
+                <li><strong>Septième Mineur</strong> : fondamentale, tierce mineure, quinte juste, septième mineure. Exemple : Cm7 : C - Eb - G - Bb (0, 3, 7, 10 demi-tons).</li>
+                <li><strong>Septième Dominante</strong> : fondamentale, tierce majeure, quinte juste, septième mineure. Exemple : C7 : C - E - G - Bb (0, 4, 7, 10 demi-tons).</li>
+            </ul>
+
+            <h3>Accord Augmenté</h3>
+            <p>Un accord augmenté est composé de la fondamentale, de la tierce majeure et de la quinte augmentée. Exemple : C+ (Do augmenté) : C - E - G# (0, 4, 8 demi-tons).</p>
+
+            <h3>Accord Diminué</h3>
+            <p>Un accord diminué est composé de la fondamentale, de la tierce mineure et de la quinte diminuée. Exemple : Cdim (Do diminué) : C - Eb - Gb (0, 3, 6 demi-tons).</p>
+        </div>
+
+        <div class="selector">
+            <h2>Sélectionne une Note et un Type d'Accord</h2>
+            <div class="selector-group">
+                <select id="noteSelector" onchange="updatePiano()">
+                    <option value="C">C (Do)</option>
+                    <option value="C#">C# (Do#)</option>
+                    <option value="D">D (Ré)</option>
+                    <option value="D#">D# (Ré#)</option>
+                    <option value="E">E (Mi)</option>
+                    <option value="F">F (Fa)</option>
+                    <option value="F#">F# (Fa#)</option>
+                    <option value="G">G (Sol)</option>
+                    <option value="G#">G# (Sol#)</option>
+                    <option value="A">A (La)</option>
+                    <option value="A#">A# (La#)</option>
+                    <option value="B">B (Si)</option>
+                </select>
+                <select id="typeSelector" onchange="updatePiano()">
+                    <option value="majeur">Majeur</option>
+                    <option value="mineur">Mineur</option>
+                    <option value="septMaj">Septième Majeur</option>
+                    <option value="septMin">Septième Mineur</option>
+                    <option value="septDom">Septième Dominante</option>
+                    <option value="augmente">Augmenté</option>
+                    <option value="diminue">Diminué</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="piano" id="piano">
+            <div class="key-container">
+                <div class="key" data-note="C"></div>
+                <div class="key black" data-note="C#"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="D"></div>
+                <div class="key black" data-note="D#"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="E"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="F"></div>
+                <div class="key black" data-note="F#"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="G"></div>
+                <div class="key black" data-note="G#"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="A"></div>
+                <div class="key black" data-note="A#"></div>
+            </div>
+            <div class="key-container">
+                <div class="key" data-note="B"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const accords = {
+            majeur: ["", "Majeur", [0, 4, 7]],
+            mineur: ["m", "Mineur", [0, 3, 7]],
+            septMaj: ["maj7", "Septième Majeur", [0, 4, 7, 11]],
+            septMin: ["m7", "Septième Mineur", [0, 3, 7, 10]],
+            septDom: ["7", "Septième Dominante", [0, 4, 7, 10]],
+            augmente: ["+", "Augmenté", [0, 4, 8]],
+            diminue: ["dim", "Diminué", [0, 3, 6]],
+        };
+
+        function updatePiano() {
+            const note = document.getElementById("noteSelector").value;
+            const type = document.getElementById("typeSelector").value;
+            const pianoKeys = document.querySelectorAll(".key");
+
+            pianoKeys.forEach(key => key.classList.remove("highlight"));
+
+            const intervals = accords[type][2];
+            intervals.forEach(offset => {
+                const noteIndex = getNoteIndex(note, offset);
+                const key = document.querySelector(`.key[data-note="${noteIndex}"]`);
+                if (key) key.classList.add("highlight");
+            });
+        }
+
+        function getNoteIndex(note, offset) {
+            const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+            const baseIndex = notes.indexOf(note);
+            return notes[(baseIndex + offset) % 12];
+        }
+
+        function goBack() {
+            window.location.href = '../cours.html'; // Remplacez par le chemin vers la page principale
+        }
+
+        // Initialiser avec la première note et type
+        updatePiano();
+    </script>
+</body>
+</html>
